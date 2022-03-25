@@ -38,11 +38,6 @@ namespace NuakeRenderer
 		return glfwWindowShouldClose(mWindow);
 	}
 
-	void Window::PollEvents()
-	{
-		glfwPollEvents();
-	}
-
 	void Window::SwapBuffers()
 	{
 		glfwSwapBuffers(mWindow);

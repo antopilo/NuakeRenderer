@@ -6,6 +6,7 @@ namespace NuakeRenderer
 	void Clear();
 
 	int Init();
+	void PollEvents();
 
 	std::string GetVersion();
 
