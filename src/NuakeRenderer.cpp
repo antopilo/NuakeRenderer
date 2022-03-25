@@ -1,5 +1,8 @@
 #include "NuakeRenderer.h"
-#include "../Dependencies/glad/include/glad/glad.h"
+#include "Window.h"
+
+#include <glad/glad.h>
+#include <glfw/glfw3.h>
 #include <iostream>
 
 namespace NuakeRenderer
@@ -9,12 +12,18 @@ namespace NuakeRenderer
 		return "0.1";
 	}
 
-	int Init(void* context)
+	int Init()
 	{
-		if (!gladLoadGLLoader((GLADloadproc)context))
-		{
-			std::cout << "Failed to initialize GLAD" << std::endl;
-			return -1;
-		}
+		return glfwInit();
+	}
+
+	void SetClearColor(float r, float g, float b, float a)
+	{
+		glClearColor(r, g, b, a);
+	}
+
+	void Clear()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 }

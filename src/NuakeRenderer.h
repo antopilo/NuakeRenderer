@@ -2,7 +2,11 @@
 
 namespace NuakeRenderer
 {
-	int Init(void* context);
+	void SetClearColor(float r, float g, float b, float a);
+	void Clear();
+
+	int Init();
 
 	std::string GetVersion();
+
 }
