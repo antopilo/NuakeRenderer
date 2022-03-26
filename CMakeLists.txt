@@ -11,12 +11,16 @@ set(HEADERS
 	NuakeRenderer/VertexBuffer.h
 	NuakeRenderer/VertexArray.h
 	NuakeRenderer/VertexBufferLayout.h
+	NuakeRenderer/Shader.h
+	NuakeRenderer/ShaderRegistry.h
 )
 
 set(SOURCES 
 	NuakeRenderer/NuakeRenderer.cpp NuakeRenderer/Window.cpp 
 	NuakeRenderer/Vendors/glm/glm/glm.hpp 
 	NuakeRenderer/VertexBuffer.cpp NuakeRenderer/VertexArray.cpp
+	NuakeRenderer/ShaderRegistry.cpp
+	NuakeRenderer/Shader.cpp
 )
 
 add_subdirectory(./Dependencies ${CMAKE_CURRET_BINARY_DIR}/Dependencies)

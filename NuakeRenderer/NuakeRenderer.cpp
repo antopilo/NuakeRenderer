@@ -25,6 +25,26 @@ namespace NuakeRenderer
         std::cout << std::endl;
     }
 
+	void EnableGLDebug(bool value)
+	{
+		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, value ? GL_TRUE : GL_FALSE);
+
+		GLint flags;
+		glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+		if (value && flags)
+		{
+			glEnable(GL_DEBUG_OUTPUT);
+			glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+			glDebugMessageCallback(glDebugOutput, nullptr);
+			glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+		}
+		else
+		{
+			glDisable(GL_DEBUG_OUTPUT);
+			glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		}
+	}
+
 	std::string GetVersion()
 	{
 		return "0.1";
@@ -32,10 +52,10 @@ namespace NuakeRenderer
 
 	int Init()
 	{
-		if(!glfwInit())
-			return -1;
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		
 		return 1;
 	}
 

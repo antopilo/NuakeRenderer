@@ -8,6 +8,13 @@ namespace NuakeRenderer
 	Window::Window(const std::string& windowTitle, Vector2 windowSize)
 	{
 		mWindowSize = windowSize;
+
+		if (!glfwInit())
+		{
+			std::cout << "Failed to initialize GLFW" << std::endl;
+			return;
+		}
+
 		mWindow = glfwCreateWindow(mWindowSize.x, mWindowSize.y, windowTitle.c_str(), NULL, NULL);
 
 		if (mWindow == NULL)
