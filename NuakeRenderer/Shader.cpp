@@ -40,25 +40,41 @@ namespace NuakeRenderer
 
 		int uniformCount = 0;
 		glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &uniformCount);
-		printf("Active Uniforms: %d\n", uniformCount);
-
 		for (int i = 0; i < uniformCount; i++)
 		{
 			glGetActiveUniform(program, (GLuint)i, bufSize, &length, &size, &type, name);
 
+			int addr = glGetUniformLocation(program, name);
+			mUniforms[name] = addr;
+			switch (type)
+			{
+				case(GL_FLOAT):
+					mUniformsType[name] = UniformTypes::Float;
+				break;
+				case(GL_INT):
+					mUniformsType[name] = UniformTypes::Int;
+					break;
+				case(GL_FLOAT_VEC2):
+					mUniformsType[name] = UniformTypes::Vec2;
+					break;
+				case(GL_FLOAT_VEC3):
+					mUniformsType[name] = UniformTypes::Vec3;
+					break;
+				case(GL_FLOAT_VEC4):
+					mUniformsType[name] = UniformTypes::Vec4;
+					break;
+				case(GL_FLOAT_MAT4):
+					mUniformsType[name] = UniformTypes::Mat4;
+					break;
+				case(GL_FLOAT_MAT3):
+					mUniformsType[name] = UniformTypes::Mat3;
+					break;
+				case(GL_SAMPLER_2D):
+					mUniformsType[name] = UniformTypes::Sampler2D;
+					break;
+			}
 			printf("Uniform #%d Type: %u Name: %s\n", i, type, name);
 		}
-
-		glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES, &uniformCount);
-		printf("Active Attributes: %d\n", uniformCount);
-
-		for (int i = 0; i < uniformCount; i++)
-		{
-			glGetActiveAttrib(program, (GLuint)i, bufSize, &length, &size, &type, name);
-
-			printf("Attribute #%d Type: %u Name: %s\n", i, type, name);
-		}
-
 		glDeleteShader(vs);
 		glDeleteShader(fs);
 
@@ -106,6 +122,13 @@ namespace NuakeRenderer
 		return id;
 	}
 
+	int Shader::FindUniformLocation(const std::string uniform)
+	{
+		if (mUniforms.find(uniform) != mUniforms.end())
+			return mUniforms[uniform];
+		return -1;
+	}
+
 	void Shader::SetUniforms(std::vector<UniformVariable> uniforms)
 	{
 		for (auto& u : uniforms)
@@ -115,11 +138,94 @@ namespace NuakeRenderer
 			switch (type)
 			{
 			case UniformTypes::Float:
-				{
-
-					break;
-				}
+				SetUniform(name, u.value.valueFloat);
+				break;
+			case UniformTypes::Int:
+				SetUniform(name, u.value.valueInt);
+				break;
+			case UniformTypes::Vec2:
+				SetUniform(name, u.value.valueVec2);
+				break;
+			case UniformTypes::Vec3:
+				SetUniform(name, u.value.valueVec3);
+				break;
+			case UniformTypes::Vec4:
+				SetUniform(name, u.value.valueVec4);
+				break;
+			case UniformTypes::Mat3:
+				SetUniform(name, u.value.valueMat3);
+				break;
+			case UniformTypes::Mat4:
+				SetUniform(name, u.value.valueMat4);
+				break;
+			case UniformTypes::Sampler2D:
+				SetUniform(name, u.value.valueInt);
+				break;
 			}
 		}
+	}
+
+	void Shader::SetUniform(const std::string& name, float v0)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniform1f(addr, v0);
+	}
+
+	void Shader::SetUniform(const std::string& name, Vector2 v0)
+	{
+		SetUniform(name, v0.x, v0.y);
+	}
+
+	void Shader::SetUniform(const std::string& name, float v0, float v1)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniform2f(addr, v0, v1);
+	}
+
+
+	void Shader::SetUniform(const std::string& name, float v0, float v1, float v2)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniform3f(addr, v0, v1, v2);
+	}
+
+	void Shader::SetUniform(const std::string& name, Vector3 v0)
+	{
+		SetUniform(name, v0.x, v0.y, v0.z);
+	}
+
+	void Shader::SetUniform(const std::string& name, float v0, float v1, float v2, float v3)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniform4f(addr, v0, v1, v2, v3);
+	}
+
+	void Shader::SetUniform(const std::string& name, Vector4 v0)
+	{
+		SetUniform(name, v0.x, v0.y, v0.z, v0.w);
+	}
+
+	void Shader::SetUniform(const std::string& name, Matrix3 v0)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniformMatrix3fv(addr, 1, GL_FALSE, &v0[0][0]);
+	}
+
+	void Shader::SetUniform(const std::string& name, Matrix4 v0)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniformMatrix4fv(addr, 1, GL_FALSE, &v0[0][0]);
 	}
 }

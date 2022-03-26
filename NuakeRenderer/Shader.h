@@ -38,23 +38,37 @@ namespace NuakeRenderer
 
 		UniformVariable(const std::string& uniformName, float uniformValue)
 		{
-			name = name;
+			name = uniformName;
 			value.valueFloat = uniformValue;
 			type = UniformTypes::Float;
 		}
 
 		UniformVariable(const std::string& uniformName, int uniformValue)
 		{
-			name = name;
+			name = uniformName;
 			value.valueInt = uniformValue;
 			type = UniformTypes::Int;
 		}
 
 		UniformVariable(const std::string& uniformName, Vector2 uniformValue)
 		{
-			name = name;
+			name = uniformName;
 			value.valueVec2 = uniformValue;
 			type = UniformTypes::Vec2;
+		}
+
+		UniformVariable(const std::string& uniformName, Vector3 uniformValue)
+		{
+			name = uniformName;
+			value.valueVec3 = uniformValue;
+			type = UniformTypes::Vec3;
+		}
+
+		UniformVariable(const std::string& uniformName, Vector4 uniformValue)
+		{
+			name = uniformName;
+			value.valueVec4 = uniformValue;
+			type = UniformTypes::Vec4;
 		}
 	};
 
@@ -78,21 +92,15 @@ namespace NuakeRenderer
 
 		void SetUniforms(std::vector<UniformVariable> uniforms);
 
-		void Shader::SetUniform(const std::string& name, float v0)
-		{
-			int addr = FindUniformLocation(name);
-
-			if (addr != -1)
-				glUniform1f(addr, v0);
-		}
-
-		void Shader::SetUniform(const std::string& name, float v0, float v1)
-		{
-			int addr = FindUniformLocation(name);
-
-			if (addr != -1)
-				glUniform2f(addr, v0, v1);
-		}
+		void Shader::SetUniform(const std::string& name, float v0);
+		void Shader::SetUniform(const std::string& name, float v0, float v1);
+		void Shader::SetUniform(const std::string& name, Vector2 v0);
+		void Shader::SetUniform(const std::string& name, float v0, float v1, float v3);
+		void Shader::SetUniform(const std::string& name, Vector3 v0);
+		void Shader::SetUniform(const std::string& name, float v0, float v1, float v3, float v4);
+		void Shader::SetUniform(const std::string& name, Vector4 v0);
+		void Shader::SetUniform(const std::string& name, Matrix3 v0);
+		void Shader::SetUniform(const std::string& name, Matrix4 v0);
 
 	private:
 		unsigned int CreateProgram(const ShaderSource& source);
