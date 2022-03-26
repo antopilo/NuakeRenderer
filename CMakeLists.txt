@@ -1,15 +1,26 @@
 cmake_minimum_required(VERSION 3.6)
 
 project(NuakeRenderer)
+
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/../cmake/modules/" ${CMAKE_MODULE_PATH})
 set(GLAD_LIB_DIR glad)
 
-set(HEADERS NuakeRenderer/NuakeRenderer.h NuakeRenderer/Window.h)
+set(HEADERS 
+	NuakeRenderer/NuakeRenderer.h NuakeRenderer/Window.h 
+	NuakeRenderer/Math.h 
+	NuakeRenderer/VertexBuffer.h
+	NuakeRenderer/VertexArray.h
+	NuakeRenderer/VertexBufferLayout.h
+)
 
-set(SOURCES NuakeRenderer/NuakeRenderer.cpp NuakeRenderer/Window.cpp)
+set(SOURCES 
+	NuakeRenderer/NuakeRenderer.cpp NuakeRenderer/Window.cpp 
+	NuakeRenderer/Vendors/glm/glm/glm.hpp 
+	NuakeRenderer/VertexBuffer.cpp NuakeRenderer/VertexArray.cpp
+)
+
 add_subdirectory(./Dependencies ${CMAKE_CURRET_BINARY_DIR}/Dependencies)
-
 add_library(NuakeRenderer ${SOURCES} ${HEADERS})
 
-include_directories(PUBLIC ./Dependencies/glad/include/ ./Dependencies/glfw/include/)
+target_include_directories(NuakeRenderer PUBLIC Dependencies/glad/include)
 target_link_libraries(NuakeRenderer PUBLIC glad glfw)

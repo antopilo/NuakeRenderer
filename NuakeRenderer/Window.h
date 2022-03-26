@@ -1,4 +1,6 @@
 #pragma once
+#include "Math.h"
+
 #include <string>
 
 class GLFWwindow;
@@ -10,12 +12,18 @@ namespace NuakeRenderer
 		GLFWwindow* mWindow;
 		std::string mWindowTitle;
 
+		Vector2 mWindowSize;
 	public:
-		Window(const std::string& windowTitle);
+		Window(const std::string& windowTitle, Vector2 windowSize = {800, 600});
 		~Window();
 
-		void MakeCurrent();
-		bool ShouldClose();
-		void SwapBuffers();
+		void MakeCurrent() const;
+		bool ShouldClose() const;
+		void SwapBuffers() const;
+
+		void SetWindowSize(Vector2 windowSize);
+		Vector2 GetWindowSize() const;
+	private:
+		void ResizeCallback(GLFWwindow* window, int width, int height);
 	};
 }

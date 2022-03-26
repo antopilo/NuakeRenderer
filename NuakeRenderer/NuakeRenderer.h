@@ -9,5 +9,4 @@ namespace NuakeRenderer
 	void PollEvents();
 
 	std::string GetVersion();
-
 }
