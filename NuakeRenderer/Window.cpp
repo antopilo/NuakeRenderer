@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <iostream>
+#include "NuakeRenderer.h"
 
 namespace NuakeRenderer
 {
@@ -37,6 +38,9 @@ namespace NuakeRenderer
 		};
 
 		glfwSetWindowSizeCallback(mWindow, func);
+
+
+		NuakeRenderer::Init();
 	}
 
 	void Window::ResizeCallback(GLFWwindow* window, int width, int height)
