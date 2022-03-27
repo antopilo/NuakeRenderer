@@ -13,6 +13,8 @@ set(HEADERS
 	NuakeRenderer/VertexBufferLayout.h
 	NuakeRenderer/Shader.h
 	NuakeRenderer/ShaderRegistry.h
+	NuakeRenderer/Texture.h
+	NuakeRenderer/Framebuffer.h
 )
 
 set(SOURCES 
@@ -21,6 +23,8 @@ set(SOURCES
 	NuakeRenderer/VertexBuffer.cpp NuakeRenderer/VertexArray.cpp
 	NuakeRenderer/ShaderRegistry.cpp
 	NuakeRenderer/Shader.cpp
+	NuakeRenderer/Texture.cpp
+	NuakeRenderer/Framebuffer.cpp
 )
 
 add_subdirectory(./Dependencies ${CMAKE_CURRET_BINARY_DIR}/Dependencies)
