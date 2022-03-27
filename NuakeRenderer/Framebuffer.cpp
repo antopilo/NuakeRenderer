@@ -20,11 +20,14 @@ namespace NuakeRenderer
 
 	bool Framebuffer::HasTextureAttachment(const TextureAttachment& attachment)
 	{
-		return false;
+		return mTextureAttachments.find(attachment) != mTextureAttachments.end();
 	}
 
 	Texture* Framebuffer::GetTextureAttachment(const TextureAttachment& attachment)
 	{
+		if (HasTextureAttachment(attachment))
+			return mTextureAttachments[attachment];
+
 		return nullptr;
 	}
 
@@ -70,7 +73,7 @@ namespace NuakeRenderer
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	}
 
-	void Framebuffer::SetTextureAttachment(const TextureAttachment& attachment, Texture* texture)
+	void Framebuffer::SetTextureAttachment(Texture* texture, const TextureAttachment& attachment)
 	{
 		mTextureAttachments[attachment] = texture;
 

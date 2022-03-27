@@ -1,8 +1,14 @@
 #include "Window.h"
+#include "NuakeRenderer.h"
+
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
+
 #include <iostream>
-#include "NuakeRenderer.h"
+
+#include <imgui.h>
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
 
 namespace NuakeRenderer
 {
@@ -41,6 +47,15 @@ namespace NuakeRenderer
 
 
 		NuakeRenderer::Init();
+
+		// Initialize ImGui
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO();
+
+		ImGui_ImplGlfw_InitForOpenGL(mWindow, true);
+		ImGui_ImplOpenGL3_Init("#version 130");
+
+		ImGui::StyleColorsDark();
 	}
 
 	void Window::ResizeCallback(GLFWwindow* window, int width, int height)

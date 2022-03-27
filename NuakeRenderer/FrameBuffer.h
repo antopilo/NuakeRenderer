@@ -58,7 +58,7 @@ namespace NuakeRenderer
 
 		bool HasTextureAttachment(const TextureAttachment& attachment);
 		Texture* GetTextureAttachment(const TextureAttachment& attachment);
-		void SetTextureAttachment(const TextureAttachment& attachment, Texture* texture);
+		void SetTextureAttachment(Texture* texture, const TextureAttachment& attachment);
 
 		void Bind();
 		void Unbind() const;
