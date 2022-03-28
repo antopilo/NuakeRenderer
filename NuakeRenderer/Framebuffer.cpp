@@ -67,7 +67,7 @@ namespace NuakeRenderer
 		for (auto const& t : mTextureAttachments)
 		{
 			t.second->Resize(mSize);
-			SetTextureAttachment(t.first, t.second);
+			SetTextureAttachment(t.second, t.first);
 		}
 
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
