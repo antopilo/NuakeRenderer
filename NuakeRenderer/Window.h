@@ -23,6 +23,8 @@ namespace NuakeRenderer
 
 		void SetWindowSize(Vector2 windowSize);
 		Vector2 GetWindowSize() const;
+
+		GLFWwindow* GetHandle() const { return mWindow; }
 	private:
 		void ResizeCallback(GLFWwindow* window, int width, int height);
 	};

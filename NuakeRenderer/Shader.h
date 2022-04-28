@@ -70,6 +70,20 @@ namespace NuakeRenderer
 			value.valueVec4 = uniformValue;
 			type = UniformTypes::Vec4;
 		}
+
+		UniformVariable(const std::string& uniformName, Matrix3 uniformValue)
+		{
+			name = uniformName;
+			value.valueMat3 = uniformValue;
+			type = UniformTypes::Mat3;
+		}
+
+		UniformVariable(const std::string& uniformName, Matrix4 uniformValue)
+		{
+			name = uniformName;
+			value.valueMat4 = uniformValue;
+			type = UniformTypes::Mat4;
+		}
 	};
 
 	class Shader
