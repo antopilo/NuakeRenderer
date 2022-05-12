@@ -1,3 +1,4 @@
+#pragma once
 #include "Math.h"
 
 #include <glad/glad.h>

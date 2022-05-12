@@ -28,7 +28,7 @@ set(SOURCES
 )
 
 add_subdirectory(./Dependencies ${CMAKE_CURRET_BINARY_DIR}/Dependencies)
-add_library(NuakeRenderer ${SOURCES} ${HEADERS})
+add_library(NuakeRenderer STATIC ${SOURCES} ${HEADERS})
 
 target_include_directories(NuakeRenderer PUBLIC Dependencies/glad/include)
 target_link_libraries(NuakeRenderer PUBLIC glad glfw imgui)
