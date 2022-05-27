@@ -21,6 +21,7 @@ namespace NuakeRenderer
 		bool ShouldClose() const;
 		void SwapBuffers() const;
 
+
 		void SetWindowSize(Vector2 windowSize);
 		Vector2 GetWindowSize() const;
 

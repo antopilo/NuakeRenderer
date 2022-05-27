@@ -108,6 +108,7 @@ namespace NuakeRenderer
 		void SetUniforms(std::vector<UniformVariable> uniforms);
 
 		void Shader::SetUniform(const std::string& name, float v0);
+		void Shader::SetUniform(const std::string& name, int v0);
 		void Shader::SetUniform(const std::string& name, float v0, float v1);
 		void Shader::SetUniform(const std::string& name, Vector2 v0);
 		void Shader::SetUniform(const std::string& name, float v0, float v1, float v3);

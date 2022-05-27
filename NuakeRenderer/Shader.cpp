@@ -73,7 +73,6 @@ namespace NuakeRenderer
 					mUniformsType[name] = UniformTypes::Sampler2D;
 					break;
 			}
-			printf("Uniform #%d Type: %u Name: %s\n", i, type, name);
 		}
 		glDeleteShader(vs);
 		glDeleteShader(fs);
@@ -171,6 +170,14 @@ namespace NuakeRenderer
 
 		if (addr != -1)
 			glUniform1f(addr, v0);
+	}
+
+	void Shader::SetUniform(const std::string& name, int v0)
+	{
+		int addr = FindUniformLocation(name);
+
+		if (addr != -1)
+			glUniform1i(addr, v0);
 	}
 
 	void Shader::SetUniform(const std::string& name, Vector2 v0)

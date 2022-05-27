@@ -14,6 +14,9 @@ namespace NuakeRenderer
 	void SetClearColor(float r, float g, float b, float a);
 	void Clear();
 
+	void Begin();
+	void End();
+
 	// Poll window events
 	void PollEvents();
 
