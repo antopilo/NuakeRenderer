@@ -173,6 +173,10 @@ namespace NuakeRenderer
 
 		// ImGui Calls here
 		ImGui::NewFrame();
+
+		
+			//   R = ImGui::RenderPlatformWindowsDefault()    ~ render
+			//   D = ImGui::DestroyPlatformWindows()          ~ shutdown
 	}
 
 	void EndImGuiFrame()

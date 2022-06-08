@@ -93,9 +93,10 @@ namespace NuakeRenderer
 		unsigned int mShaderID;
 		std::map<std::string, UniformTypes> mUniformsType;
 		std::map<std::string, unsigned int> mUniforms;
-
+		std::string mError = "";
 	public:
 		Shader(const std::string& vertex, const std::string& frag);
+		Shader(const std::string& compute);
 
 		void Bind() const;
 		void Unbind() const;
@@ -104,6 +105,8 @@ namespace NuakeRenderer
 		{
 			return mUniformsType;
 		}
+
+		std::string GetError() const { return mError; }
 
 		void SetUniforms(std::vector<UniformVariable> uniforms);
 

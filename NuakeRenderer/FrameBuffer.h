@@ -65,5 +65,7 @@ namespace NuakeRenderer
 
 		void QueueResize(const Vector2& size);
 		void Resize(const Vector2& size);
+
+		Vector2 GetSize() const { return mSize; }
 	};
 }

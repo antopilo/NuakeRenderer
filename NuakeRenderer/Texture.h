@@ -8,7 +8,8 @@ namespace NuakeRenderer
 	enum class PixelFormat
 	{
 		RGB8 = GL_RGB,
-		RGBA8 = GL_RGBA
+		RGBA8 = GL_RGBA,
+		RGBA32F = GL_RGBA32F
 	};
 
 	enum class PixelDataType

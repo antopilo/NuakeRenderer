@@ -16,7 +16,12 @@ namespace NuakeRenderer
 	{
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)flags.pixelFormat, mSize.x, mSize.y, 0, (GLenum)flags.pixelFormat, (GLenum)flags.pixelDataType, 0);
+		
+		GLenum interlan = (GLenum)mFlags.pixelFormat;
+		if (mFlags.pixelFormat == PixelFormat::RGBA32F)
+			interlan = GL_RGBA;
+		
+		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)flags.pixelFormat, mSize.x, mSize.y, 0, interlan, (GLenum)flags.pixelDataType, 0);
 		SetMagnificationFilter(mFlags.magFilter);
 		SetMinificationFilter(mFlags.minFilter);
 		SetWrapping(mFlags.wrapping);
@@ -28,7 +33,11 @@ namespace NuakeRenderer
 		mSize = size;
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)mFlags.pixelFormat, mSize.x, mSize.y, 0, (GLenum)mFlags.pixelFormat, (GLenum)mFlags.pixelDataType, 0);
+		GLenum interlan = (GLenum)mFlags.pixelFormat;
+		if (mFlags.pixelFormat == PixelFormat::RGBA32F)
+			interlan = GL_RGBA;
+
+		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)mFlags.pixelFormat, mSize.x, mSize.y, 0, interlan, (GLenum)mFlags.pixelDataType, 0);
 		SetMagnificationFilter(mFlags.magFilter);
 		SetMinificationFilter(mFlags.minFilter);
 		SetWrapping(mFlags.wrapping);

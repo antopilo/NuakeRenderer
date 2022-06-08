@@ -9,6 +9,11 @@ namespace NuakeRenderer
 		mShaderID = CreateProgram({vertex, frag, ""});
 	}
 
+	Shader::Shader(const std::string& compute)
+	{
+		mShaderID = CreateProgram({"", "", compute});
+	}
+
 	void Shader::Bind() const
 	{
 		glUseProgram(mShaderID);
@@ -22,11 +27,23 @@ namespace NuakeRenderer
 	{
 		unsigned int program = glCreateProgram();
 
-		unsigned int vs = Compile(GL_VERTEX_SHADER, source);
-		unsigned int fs = Compile(GL_FRAGMENT_SHADER, source);
+		unsigned int vs, fs, cs;
+		if (source.vertex != "" && source.fragment != "")
+		{
+			vs = Compile(GL_VERTEX_SHADER, source);
+			fs = Compile(GL_FRAGMENT_SHADER, source);
 
-		glAttachShader(program, vs);
-		glAttachShader(program, fs);
+			glAttachShader(program, vs);
+			glAttachShader(program, fs);
+		}
+
+		if (source.compute != "")
+		{
+			cs = Compile(GL_COMPUTE_SHADER, source);
+			
+			glAttachShader(program, cs);
+		}
+		
 		glLinkProgram(program);
 		glValidateProgram(program);
 
@@ -70,12 +87,23 @@ namespace NuakeRenderer
 					mUniformsType[name] = UniformTypes::Mat3;
 					break;
 				case(GL_SAMPLER_2D):
+				case (GL_IMAGE_2D) :
 					mUniformsType[name] = UniformTypes::Sampler2D;
 					break;
+				
 			}
 		}
-		glDeleteShader(vs);
-		glDeleteShader(fs);
+
+		if (source.vertex != "" && source.fragment != "")
+		{
+			glDeleteShader(vs);
+			glDeleteShader(fs);
+		}
+
+		if(source.compute != "")
+		{
+			glDeleteShader(cs);
+		}
 
 		return program;
 	}
@@ -86,6 +114,7 @@ namespace NuakeRenderer
 		const char* src;
 		if (shaderType == GL_FRAGMENT_SHADER) src = source.fragment.c_str();
 		if (shaderType == GL_VERTEX_SHADER)   src = source.vertex.c_str();
+		if (shaderType == GL_COMPUTE_SHADER)  src = source.compute.c_str();
 
 		glShaderSource(id, 1, &src, nullptr);
 		glCompileShader(id);
@@ -108,15 +137,20 @@ namespace NuakeRenderer
 			std::string stype;
 			if (shaderType == GL_FRAGMENT_SHADER) stype = "Fragment";
 			if (shaderType == GL_VERTEX_SHADER)  stype = "Vertex";
-
+			if (shaderType == GL_COMPUTE_SHADER) stype = "Compute";
 			std::cout << "Failed to compile " <<
-				(shaderType == GL_VERTEX_SHADER ? "vertex" : "Fragment") << " shader!" << std::endl;
+				stype << " shader!" << std::endl;
 
+			mError += "Failed to compile" + stype + " shader!\n";
+			mError += message;
+			
 			std::cout << message << std::endl;
 			// Delete invalid shader
 			glDeleteShader(id);
 			return 0;
 		}
+
+		mError = "";
 
 		return id;
 	}
