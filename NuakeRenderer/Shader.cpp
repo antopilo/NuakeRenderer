@@ -51,7 +51,7 @@ namespace NuakeRenderer
 		GLint size; // size of the variable
 		GLenum type; // type of the variable (float, vec3 or mat4, etc)
 
-		const GLsizei bufSize = 16; // maximum name length
+		const GLsizei bufSize = 32; // maximum name length
 		GLchar name[bufSize]; // variable name in GLSL
 		GLsizei length; // name length
 
@@ -210,8 +210,7 @@ namespace NuakeRenderer
 	{
 		int addr = FindUniformLocation(name);
 
-		if (addr != -1)
-			glUniform1i(addr, v0);
+		glUniform1i(addr, v0);
 	}
 
 	void Shader::SetUniform(const std::string& name, Vector2 v0)
