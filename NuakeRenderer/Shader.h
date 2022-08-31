@@ -110,16 +110,16 @@ namespace NuakeRenderer
 
 		void SetUniforms(std::vector<UniformVariable> uniforms);
 
-		void Shader::SetUniform(const std::string& name, float v0);
-		void Shader::SetUniform(const std::string& name, int v0);
-		void Shader::SetUniform(const std::string& name, float v0, float v1);
-		void Shader::SetUniform(const std::string& name, Vector2 v0);
-		void Shader::SetUniform(const std::string& name, float v0, float v1, float v3);
-		void Shader::SetUniform(const std::string& name, Vector3 v0);
-		void Shader::SetUniform(const std::string& name, float v0, float v1, float v3, float v4);
-		void Shader::SetUniform(const std::string& name, Vector4 v0);
-		void Shader::SetUniform(const std::string& name, Matrix3 v0);
-		void Shader::SetUniform(const std::string& name, Matrix4 v0);
+		void SetUniform(const std::string& name, float v0);
+		void SetUniform(const std::string& name, int v0);
+		void SetUniform(const std::string& name, float v0, float v1);
+		void SetUniform(const std::string& name, Vector2 v0);
+		void SetUniform(const std::string& name, float v0, float v1, float v3);
+		void SetUniform(const std::string& name, Vector3 v0);
+		void SetUniform(const std::string& name, float v0, float v1, float v3, float v4);
+		void SetUniform(const std::string& name, Vector4 v0);
+		void SetUniform(const std::string& name, Matrix3 v0);
+		void SetUniform(const std::string& name, Matrix4 v0);
 
 	private:
 		unsigned int CreateProgram(const ShaderSource& source);
