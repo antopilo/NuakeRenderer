@@ -1,7 +1,26 @@
 #include "Texture.h"
 
+#include "stb_image.h"
+
 namespace NuakeRenderer
 {
+	Texture::Texture(const TextureFlags& flags, const std::string& path)
+	{
+		stbi_set_flip_vertically_on_load(1);
+
+		int width, height, channels;
+		stbi_load(path.c_str(), &width, &height, &channels, 4);
+
+		glGenTextures(1, &mTextureID);
+		glBindTexture(GL_TEXTURE_2D, mTextureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)flags.pixelFormat, mSize.x, mSize.y, 0, (GLenum)flags.pixelFormat, (GLenum)flags.pixelDataType, mData);
+		SetMagnificationFilter(mFlags.magFilter);
+		SetMinificationFilter(mFlags.minFilter);
+		SetWrapping(mFlags.wrapping);
+
+		stbi_image_free(mData);
+	}
+
 	Texture::Texture(const TextureFlags& flags, Vector2 size, void* data) : mFlags(flags), mSize(size)
 	{
 		glGenTextures(1, &mTextureID);
@@ -27,6 +46,11 @@ namespace NuakeRenderer
 		SetWrapping(mFlags.wrapping);
 	}
 	
+	Texture::~Texture()
+	{
+		glDeleteTextures(1, &mTextureID);
+	}
+
 	void Texture::Resize(const Vector2& size)
 	{
 		glDeleteTextures(1, &mTextureID);
@@ -43,7 +67,7 @@ namespace NuakeRenderer
 		SetWrapping(mFlags.wrapping);
 	}
 
-	void Texture::Bind(unsigned int slot) const
+	void Texture::Bind(uint32_t slot) const
 	{
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
