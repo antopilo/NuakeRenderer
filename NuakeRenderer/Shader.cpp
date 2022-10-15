@@ -131,8 +131,9 @@ namespace NuakeRenderer
 			// We allocate the size of the array using 
 			// m alloc. casted as a pointer.
 			char* message = (char*)malloc(length * sizeof(char));
-
 			glGetShaderInfoLog(id, length, &length, message);
+
+			std::string messagestring = std::string(message);
 
 			std::string stype;
 			if (shaderType == GL_FRAGMENT_SHADER) stype = "Fragment";
@@ -142,7 +143,7 @@ namespace NuakeRenderer
 				stype << " shader!" << std::endl;
 
 			mError += "Failed to compile" + stype + " shader!\n";
-			mError += message;
+			mError += messagestring;
 			
 			std::cout << message << std::endl;
 			// Delete invalid shader
@@ -155,14 +156,14 @@ namespace NuakeRenderer
 		return id;
 	}
 
-	int Shader::FindUniformLocation(const std::string uniform)
+	int Shader::FindUniformLocation(const std::string& uniform)
 	{
 		if (mUniforms.find(uniform) != mUniforms.end())
 			return mUniforms[uniform];
 		return -1;
 	}
 
-	void Shader::SetUniforms(std::vector<UniformVariable> uniforms)
+	void Shader::SetUniforms(const std::vector<UniformVariable>& uniforms)
 	{
 		for (auto& u : uniforms)
 		{

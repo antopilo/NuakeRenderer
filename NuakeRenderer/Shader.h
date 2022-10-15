@@ -90,10 +90,11 @@ namespace NuakeRenderer
 	class Shader
 	{
 	private:
-		unsigned int mShaderID;
+		uint32_t mShaderID;
 		std::map<std::string, UniformTypes> mUniformsType;
 		std::map<std::string, unsigned int> mUniforms;
 		std::string mError = "";
+
 	public:
 		Shader(const std::string& vertex, const std::string& frag);
 		Shader(const std::string& compute);
@@ -108,7 +109,7 @@ namespace NuakeRenderer
 
 		std::string GetError() const { return mError; }
 
-		void SetUniforms(std::vector<UniformVariable> uniforms);
+		void SetUniforms(const std::vector<UniformVariable>& uniforms);
 
 		void Shader::SetUniform(const std::string& name, float v0);
 		void Shader::SetUniform(const std::string& name, int v0);
@@ -124,6 +125,6 @@ namespace NuakeRenderer
 	private:
 		unsigned int CreateProgram(const ShaderSource& source);
 		unsigned int Compile(GLenum shaderType, const ShaderSource& source);
-		int FindUniformLocation(const std::string);
+		int FindUniformLocation(const std::string& uniform);
 	};
 }

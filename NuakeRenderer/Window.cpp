@@ -45,7 +45,6 @@ namespace NuakeRenderer
 
 		glfwSetWindowSizeCallback(mWindow, func);
 
-
 		NuakeRenderer::Init();
 
 		// Initialize ImGui
