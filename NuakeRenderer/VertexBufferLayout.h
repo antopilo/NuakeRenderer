@@ -34,7 +34,7 @@ namespace NuakeRenderer
 		template<typename T>
 		void Push(unsigned int count)
 		{
-			static_assert(false);
+			//static_assert(false);
 		}
 
 		template<>
