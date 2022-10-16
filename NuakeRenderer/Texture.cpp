@@ -11,21 +11,32 @@ namespace NuakeRenderer
 		int width, height, channels;
 		mData = stbi_load(path.c_str(), &width, &height, &channels, 4);
 
+		mSize.x = width;
+		mSize.y = height;
+
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)flags.pixelFormat, mSize.x, mSize.y, 0, (GLenum)flags.pixelFormat, (GLenum)flags.pixelDataType, mData);
+
+		stbi_image_free(mData);
+
 		SetMagnificationFilter(mFlags.magFilter);
 		SetMinificationFilter(mFlags.minFilter);
 		SetWrapping(mFlags.wrapping);
-
-		stbi_image_free(mData);
 	}
 
 	Texture::Texture(const TextureFlags& flags, Vector2 size, void* data) : mFlags(flags), mSize(size)
 	{
+		mData = data;
+		if (flags.flipVertical)
+		{
+			FlipOnLoad();
+		}
+
 		glGenTextures(1, &mTextureID);
 		glBindTexture(GL_TEXTURE_2D, mTextureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, (GLenum)flags.pixelFormat, mSize.x, mSize.y, 0, (GLenum)flags.pixelFormat, (GLenum)flags.pixelDataType, data);
+
 		SetMagnificationFilter(mFlags.magFilter);
 		SetMinificationFilter(mFlags.minFilter);
 		SetWrapping(mFlags.wrapping);
@@ -108,5 +119,29 @@ namespace NuakeRenderer
 	void Texture::GenerateMipmap()
 	{
 
+	}
+
+	void Texture::FlipOnLoad()
+	{
+		int row;
+		size_t bytes_per_row = (size_t)mSize.x * 4;
+		stbi_uc temp[2048];
+		stbi_uc* bytes = (stbi_uc*)mData;
+
+		for (row = 0; row < ((int)mSize.x >> 1); row++) {
+			stbi_uc* row0 = bytes + row * bytes_per_row;
+			stbi_uc* row1 = bytes + ((int)mSize.x - row - 1) * bytes_per_row;
+			// swap row0 with row1
+			size_t bytes_left = bytes_per_row;
+			while (bytes_left) {
+				size_t bytes_copy = (bytes_left < sizeof(temp)) ? bytes_left : sizeof(temp);
+				memcpy(temp, row0, bytes_copy);
+				memcpy(row0, row1, bytes_copy);
+				memcpy(row1, temp, bytes_copy);
+				row0 += bytes_copy;
+				row1 += bytes_copy;
+				bytes_left -= bytes_copy;
+			}
+		}
 	}
 }

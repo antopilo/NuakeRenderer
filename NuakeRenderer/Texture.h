@@ -2,7 +2,6 @@
 #include "Math.h"
 
 #include <string>
-
 #include <glad/glad.h>
 
 namespace NuakeRenderer
@@ -40,6 +39,7 @@ namespace NuakeRenderer
 		SamplerFilter minFilter = SamplerFilter::LINEAR;
 		SamplerFilter magFilter = SamplerFilter::LINEAR;
 		SamplerWrapping wrapping = SamplerWrapping::REPEAT;
+		bool flipVertical = false;
 	};
 
 	class Texture
@@ -50,6 +50,7 @@ namespace NuakeRenderer
 		TextureFlags mFlags;
 		void* mData;
 
+		void FlipOnLoad();
 	public:
 		Texture(const TextureFlags& flags, const std::string& path);
 		Texture(const TextureFlags& flags, Vector2 size, void* data);
