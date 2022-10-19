@@ -16,6 +16,8 @@ set(HEADERS
 	NuakeRenderer/Texture.h
 	NuakeRenderer/Framebuffer.h
 	NuakeRenderer/SSBO.h 
+	NuakeRenderer/UniformBuffer.h 
+	NuakeRenderer/Vendors/stb_image.h 
 )
 
 set(SOURCES 
@@ -26,7 +28,8 @@ set(SOURCES
 	NuakeRenderer/Shader.cpp
 	NuakeRenderer/Texture.cpp
 	NuakeRenderer/Framebuffer.cpp 
-	NuakeRenderer/SSBO.cpp
+	NuakeRenderer/SSBO.cpp 
+	NuakeRenderer/UniformBuffer.cpp 
 )
 
 add_subdirectory(./Dependencies ${CMAKE_CURRET_BINARY_DIR}/Dependencies)

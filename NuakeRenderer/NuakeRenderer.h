@@ -14,6 +14,9 @@ namespace NuakeRenderer
 	void SetClearColor(float r, float g, float b, float a);
 	void Clear();
 
+	void SetMSAA(bool enable);
+	void SetMSAASamples(uint32_t samples);
+
 	void Begin();
 	void End();
 

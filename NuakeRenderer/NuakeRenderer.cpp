@@ -79,6 +79,23 @@ namespace NuakeRenderer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void SetMSAA(bool enabled)
+	{
+		if (enabled)
+		{
+			glEnable(GL_MULTISAMPLE);
+		}
+		else
+		{
+			glDisable(GL_MULTISAMPLE);
+		}
+	}
+
+	void SetMSAASamples(uint32_t samples)
+	{
+		glfwWindowHint(GLFW_SAMPLES, samples);
+	}
+
 	void Begin()
 	{
 		Clear();
