@@ -1,12 +1,17 @@
 #include "Texture.h"
 
+#define STB_IMAGE_IMPLEMENTATION
 #include "Vendors/stb_image.h"
 
 namespace NuakeRenderer
 {
 	Texture::Texture(const TextureFlags& flags, const std::string& path)
 	{
-		stbi_set_flip_vertically_on_load(1);
+		mFlags = flags;
+		if (flags.flipVertical)
+		{
+			stbi_set_flip_vertically_on_load(1);
+		}
 
 		int width, height, channels;
 		mData = stbi_load(path.c_str(), &width, &height, &channels, 4);
