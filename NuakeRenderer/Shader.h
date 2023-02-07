@@ -18,12 +18,13 @@ namespace NuakeRenderer
 
 	enum class UniformTypes
 	{
-		Int, Float, Vec2, Vec3, Vec4, Mat3, Mat4, Sampler2D
+		Int, Uint, Float, Vec2, Vec3, Vec4, Mat3, Mat4, Sampler2D
 	};
 
 	union UniformValue {
 		float valueFloat;
 		int valueInt;
+		unsigned int valueUInt;
 		Vector2 valueVec2;
 		Vector3 valueVec3;
 		Vector4 valueVec4;
@@ -113,6 +114,7 @@ namespace NuakeRenderer
 
 		void SetUniform(const std::string& name, float v0);
 		void SetUniform(const std::string& name, int v0);
+		void SetUniform(const std::string& name, unsigned int v0);
 		void SetUniform(const std::string& name, float v0, float v1);
 		void SetUniform(const std::string& name, Vector2 v0);
 		void SetUniform(const std::string& name, float v0, float v1, float v3);

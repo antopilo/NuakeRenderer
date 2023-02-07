@@ -177,6 +177,9 @@ namespace NuakeRenderer
 			case UniformTypes::Int:
 				SetUniform(name, u.value.valueInt);
 				break;
+			case UniformTypes::Uint:
+				SetUniform(name, u.value.valueUInt);
+				break;
 			case UniformTypes::Vec2:
 				SetUniform(name, u.value.valueVec2);
 				break;
@@ -212,6 +215,13 @@ namespace NuakeRenderer
 		int addr = FindUniformLocation(name);
 
 		glUniform1i(addr, v0);
+	}
+
+	void Shader::SetUniform(const std::string& name, unsigned int v0)
+	{
+		int addr = FindUniformLocation(name);
+
+		glUniform1ui(addr, v0);
 	}
 
 	void Shader::SetUniform(const std::string& name, Vector2 v0)
